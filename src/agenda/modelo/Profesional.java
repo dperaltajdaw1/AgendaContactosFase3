@@ -1,7 +1,7 @@
 package agenda.modelo;
 
 /**
- * @version 1.0,
+ * @version 1.2,
  * @author Jhon Vera, Diana Peralta, Adrian Vitoria
  * Representacion de un conctacto personal de la agenda
  */ 

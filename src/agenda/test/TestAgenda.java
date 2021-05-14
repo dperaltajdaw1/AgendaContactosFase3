@@ -7,7 +7,7 @@ import agenda.io.AgendaIO;
 import agenda.modelo.*;
 
 /**
- * @version 1.1,
+ * @version 1.2,
  * @author Jhon Vera, Diana Peralta, Adrian Vitoria
  * Main para probar todos los metodos de la clase AgendaContactos
  */  

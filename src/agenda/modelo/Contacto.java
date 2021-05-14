@@ -1,7 +1,7 @@
 package agenda.modelo;
 
 /**
- * @version 1.1
+ * @version 1.2
  * @author Jhon Vera, Diana Peralta, Adrian Vitoria
  * Representacion de un conctacto de la agenda
  */ 

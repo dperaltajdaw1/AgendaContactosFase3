@@ -11,7 +11,7 @@ import java.util.Scanner;
 import agenda.modelo.*;
 
 /**
- * @version 1.1
+ * @version 1.2
  * @author Jhon Vera, Diana Peralta, Adrian Vitoria Lee una liniea de datos para
  *         agregarlos a la agenda.
  */

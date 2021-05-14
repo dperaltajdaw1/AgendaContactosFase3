@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @version 1.0,
+ * @version 1.2,
  * @author Jhon Vera, Diana Peralta, Adrian Vitoria
  * Representacion de un conctacto Personal de la agenda
  */ 

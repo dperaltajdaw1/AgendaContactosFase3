@@ -5,7 +5,7 @@ import java.util.List;
 import agenda.modelo.*;
 
 /**
- * @version 1.0,
+ * @version 1.2,
  * @author Jhon Vera, Diana Peralta, Adrian Vitoria
  * Clases para probar las clases Contacto,Profesiona, Personal.
  */ 
