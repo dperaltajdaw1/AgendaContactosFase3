@@ -38,8 +38,6 @@ public class TestAgenda {
 		personalesOrdenadosPorFecha(agenda, 'w');
 		separador();
 
-		personalesPorRelacion(agenda);
-		separador();
 		AgendaIO.exportar(agenda,"personales-relacion.txt");
 
 	}
@@ -79,11 +77,6 @@ public class TestAgenda {
 					.forEach(contacto -> System.out.println(contacto));
 		}
 
-	}
-
-	private static void personalesPorRelacion(AgendaContactos agenda) {
-		Map<Relacion, List<String>> map = agenda.personalesPorRelacion();
-		map.forEach((key, value) -> System.out.println(key + "\n\t" + value));
 	}
 
 	private static void separador() {
