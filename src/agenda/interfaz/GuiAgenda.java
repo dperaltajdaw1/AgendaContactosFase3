@@ -6,11 +6,16 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -108,6 +113,9 @@ public class GuiAgenda extends Application {
 		btnPersonalesOrdenadosPorFecha = new Button();
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
 		btnPersonalesOrdenadosPorFecha.setText("Contactos Personales ordenados por fecha");
+		btnPersonalesOrdenadosPorFecha.setOnAction(e -> {
+			personalesOrdenadosPorFecha();
+		});
 		
 		btnClear = new Button();
 		btnClear.getStyleClass().add("botones");
@@ -135,6 +143,65 @@ public class GuiAgenda extends Application {
 		// a completar
 		MenuBar barra = new MenuBar();
 
+		Menu me1 = new Menu("Archivo");
+		Menu me2 = new Menu("Operaciones");
+		Menu me3 = new Menu("Help");
+		
+		itemImportar = new MenuItem("Importar agenda");
+		itemImportar.setOnAction(e -> {
+		    importarAgenda();
+		    itemImportar.setDisable(true);
+		    itemExportarPersonales.setDisable(false);
+		});
+		itemExportarPersonales = new MenuItem("Exportar Personales");
+		itemExportarPersonales.setDisable(true);
+		itemExportarPersonales.setOnAction(e -> {
+			exportarPersonales();
+		});
+		itemSalir = new MenuItem("Salir");
+		itemSalir.setOnAction(e -> {
+			salir();
+		});
+		
+		SeparatorMenuItem separator = new SeparatorMenuItem();
+		
+		me1.getItems().add(itemImportar);
+		me1.getItems().add(itemExportarPersonales);
+		me1.getItems().add(separator);
+		me1.getItems().add(itemSalir);
+		
+		itemBuscar = new MenuItem("Buscar");
+		itemBuscar.setOnAction(e -> {
+			buscar();
+		});
+		itemFelicitar = new MenuItem("Felicitar");
+		itemFelicitar.setOnAction(e -> {
+			felicitar();
+		});
+		
+		me2.getItems().add(itemBuscar);
+		me2.getItems().add(itemFelicitar);
+		
+		itemAbout = new MenuItem("About");
+		itemAbout.setOnAction(e -> {
+			about();
+		});
+		
+		me3.getItems().add(itemAbout);
+		
+		barra.getMenus().add(me1);
+		barra.getMenus().add(me2);
+		barra.getMenus().add(me3);
+		
+		itemExportarPersonales.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
+		itemImportar.setAccelerator(new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN));
+		itemSalir.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+		
+		itemBuscar.setAccelerator(new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN));
+		itemFelicitar.setAccelerator(new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN));
+		
+		itemAbout.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
+		
 		return barra;
 	}
 
