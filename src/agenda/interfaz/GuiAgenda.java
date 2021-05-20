@@ -32,7 +32,7 @@ public class GuiAgenda extends Application {
 
 	private MenuItem itemAbout;
 
-	private TextArea areaTexto;
+	private java.awt.TextArea areaTexto;
 
 	private RadioButton rbtListarTodo;
 	private RadioButton rbtListarSoloNumero;
@@ -41,7 +41,7 @@ public class GuiAgenda extends Application {
 	private Button btnPersonalesEnLetra;
 	private Button btnPersonalesOrdenadosPorFecha;
 
-	private TextField txtBuscar;
+	private java.awt.TextField txtBuscar;
 
 	private Button btnClear;
 	private Button btnSalir;
@@ -82,7 +82,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private VBox crearPanelBotones() {
-		// a completar
+		// a completar 
 		VBox panel = new VBox();
 		panel.setPadding(new Insets(10));
 		
@@ -208,6 +208,58 @@ public class GuiAgenda extends Application {
 	private void importarAgenda() {
 		// a completar
 
+		//FileChooser cho = new FileChooser();
+		//File fie = cho.showSaveDialog(null);
+		// No se como va el FileChooser
+		
+		//Esto es copia del importar del AgendaIO
+		/*int error = 0;
+		BufferedReader entrada = null;
+		try
+		{
+			InputStream input = AgendaIO.class.getClassLoader().getResourceAsStream(texto);
+			entrada = new BufferedReader(new InputStreamReader(input));
+			String linea = entrada.readLine();
+			while (linea != null){
+				try {
+					agenda.a√±adirContacto(parsearLinea(linea));
+				}
+				catch (NullPointerException io) {
+					error ++;
+				}
+				linea = entrada.readLine();
+			}
+		}
+		catch (IOException e){
+			System.out.println("Error al leer " + texto);
+			error++;
+		}
+		finally
+		{
+			if (entrada != null)
+			{
+				try
+				{
+					entrada.close();
+				}
+				catch (NullPointerException e)
+				{
+					System.out.println(e.getMessage());
+					error++;
+				}
+				
+				catch (IOException e)
+				{
+					System.out.println(e.getMessage());
+					error++;
+				}
+			}
+		} */
+		//Fin de copia
+		
+		// Esto deberia ponerlo en el textarea
+		//String ing = "N∫ de errores: " + error;
+		//areaTexto.insert(ing,0);
 	}
 
 	private void exportarPersonales() {
@@ -250,8 +302,13 @@ public class GuiAgenda extends Application {
 	private void buscar() {
 		clear();
 		// a completar
-
+		
 		cogerFoco();
+		//Para cogerlo (No puedo comprobar error)
+		//String ing = txtBuscar.getText();
+		
+		//Para mostrarlo
+		//areaTexto.setText();
 
 	}
 
