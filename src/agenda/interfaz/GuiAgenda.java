@@ -1,5 +1,8 @@
 package agenda.interfaz;
 
+import java.io.File;
+
+import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,6 +16,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -20,7 +24,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.stage.Window;
+import javafx.stage.FileChooser;
 public class GuiAgenda extends Application {
 	private AgendaContactos agenda;
 	private MenuItem itemImportar;
@@ -72,11 +77,11 @@ public class GuiAgenda extends Application {
 		BorderPane panel = new BorderPane();
 		panel.setPadding(new Insets(10));
 		panel.setTop(crearPanelLetras());
-
+		
 		areaTexto = new TextArea();
 		areaTexto.getStyleClass().add("textarea");
+		
 		panel.setCenter(areaTexto);
-
 		panel.setLeft(crearPanelBotones());
 		return panel;
 	}
@@ -88,41 +93,57 @@ public class GuiAgenda extends Application {
 		
 		txtBuscar = new TextField();
 		txtBuscar.getStyleClass().add("text-field");
+		VBox.setMargin(txtBuscar, new Insets(0, 0, 40, 0));
 		txtBuscar.minHeight(40);
 		txtBuscar.setPromptText("Buscar");
 		
+		ToggleGroup group = new ToggleGroup();
+		
 		rbtListarTodo = new RadioButton();
 		rbtListarTodo.getStyleClass().add("radio-button");
-		rbtListarTodo.setPadding(new Insets(40,0,10,0));
+		VBox.setMargin(rbtListarTodo, new Insets(0, 0, 10, 0));
 		rbtListarTodo.setSelected(true);
 		rbtListarTodo.setText("Listr toda la agenda");
+		rbtListarTodo.setToggleGroup(group);
 		
 		rbtListarSoloNumero = new RadioButton();
 		rbtListarSoloNumero.getStyleClass().add("radio-button");
-		rbtListarSoloNumero.setPadding(new Insets(0,0,10,0));
 		rbtListarSoloNumero.setText("Listr nº contactos");
+		rbtListarSoloNumero.setToggleGroup(group);
+		
 		
 		btnListar = new Button();
 		btnListar.getStyleClass().add("botones");
+		VBox.setMargin(btnListar, new Insets(10, 0, 40, 0));
+		btnListar.setPrefWidth(250);
 		btnListar.setText("Listar");
+		btnListar.setOnAction(e -> {
+			listar();
+		});
 		
 		btnPersonalesEnLetra = new Button();
 		btnPersonalesEnLetra.getStyleClass().add("botones");
+		VBox.setMargin(btnPersonalesEnLetra, new Insets(0, 0, 10, 0));
+		btnPersonalesEnLetra.setPrefWidth(250);
 		btnPersonalesEnLetra.setText("Contactos Personales en letra");
 		
 		btnPersonalesOrdenadosPorFecha = new Button();
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
-		btnPersonalesOrdenadosPorFecha.setText("Contactos Personales ordenados por fecha");
+		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
+		btnPersonalesOrdenadosPorFecha.setText("Contactos Personales\n ordenados por fecha");
 		btnPersonalesOrdenadosPorFecha.setOnAction(e -> {
 			personalesOrdenadosPorFecha();
 		});
 		
 		btnClear = new Button();
 		btnClear.getStyleClass().add("botones");
+		VBox.setMargin(btnClear, new Insets(40, 0, 10, 0));
+		btnClear.setPrefWidth(250);
 		btnClear.setText("Clear");
 		
 		btnSalir = new Button();
 		btnSalir.getStyleClass().add("botones");
+		btnSalir.setPrefWidth(250);
 		btnSalir.setText("Salir");
 		
 		panel.getChildren().addAll(
@@ -153,8 +174,7 @@ public class GuiAgenda extends Application {
 		    itemImportar.setDisable(true);
 		    itemExportarPersonales.setDisable(false);
 		});
-		itemExportarPersonales = new MenuItem("Exportar Personales");
-		itemExportarPersonales.setDisable(true);
+		itemExportarPersonales = new MenuItem("_Exportar Personales");
 		itemExportarPersonales.setOnAction(e -> {
 			exportarPersonales();
 		});
@@ -207,12 +227,25 @@ public class GuiAgenda extends Application {
 
 	private void importarAgenda() {
 		// a completar
-
+		
 	}
 
 	private void exportarPersonales() {
 		// a completar
-
+		Stage st = new Stage();
+		FileChooser save = new FileChooser();
+		save.setTitle ("Guardar Documento");
+		save.setInitialFileName("");
+		save.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text file", "*.txt"));
+		try {
+			File file = save.showSaveDialog(st);
+			AgendaIO.exportar(agenda, String.valueOf(file));
+			save.setInitialDirectory(file.getParentFile());
+			areaTexto.setText("Exportados datos personales");
+		}
+		catch(Exception e){
+			
+		}
 	}
 
 	/**
@@ -221,7 +254,15 @@ public class GuiAgenda extends Application {
 	private void listar() {
 		clear();
 		// a completar
-
+		if(agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		}
+		else if(rbtListarTodo.isSelected()) {
+			areaTexto.setText(agenda.toString());
+		}
+		else {
+			areaTexto.setText("Total contactos en la agenda: " + agenda.totalContactos());
+		}
 	}
 
 	private void personalesOrdenadosPorFecha() {
