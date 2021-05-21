@@ -297,6 +297,10 @@ public class GuiAgenda extends Application {
 		
 		return barra;
 	}
+	/**
+	* En este método conseguiremos crear un cuadro de dialogo el cual permitirá seleccionar el 
+	* documento agenda.csv
+	*/
 
 	private void importarAgenda() {
 		// a completar
@@ -315,7 +319,10 @@ public class GuiAgenda extends Application {
 	
 	}
 
-
+	/**
+	* Se seleccionará el nombre del fichero en el que se podrán guardar los datos personales de la 
+	* agenda agrupados por relación 
+	*/
 	private void exportarPersonales() {
 		// a completar
 		Stage st = new Stage();
@@ -351,6 +358,11 @@ public class GuiAgenda extends Application {
 		}
 	}
 
+	/**
+	* Si no se ha llegado a importar la agenda se indicará con un mensaje, en el caso de lo 
+	* contrario se ejecutará un cuadro de dialogo que permitirá mostrar los contactos en la letra 
+	* seleccionada en dicho cuadro
+	*/
 	private void personalesOrdenadosPorFecha() {
 		clear();
 		if (agenda.totalContactos() == 0) {
@@ -384,6 +396,11 @@ public class GuiAgenda extends Application {
 
 	}
 
+	/**
+	* Si no se ha importado la agenda se indicará con un mensaje, en el caso de lo contrario se 
+	* ejecutará un cuadro de dialogo que permitirá mostrar los contactos en la letra seleccionada 
+	* en dicho cuadro
+	*/
 	private void contactosPersonalesEnLetra() {
 		clear();
 		// a completar
@@ -417,7 +434,11 @@ public class GuiAgenda extends Application {
 
 
 	}
-
+	/**
+	 * Si no se ha importado la agenda se indicará con un mensaje, en el caso de lo contrario se 
+	 * muestran los contactos existentes con dicha letra
+	 * @param letra
+	 */
 	private void contactosEnLetra(char letra) {
 		clear();
 		String texto = "";
@@ -438,7 +459,11 @@ public class GuiAgenda extends Application {
 		}
 	}
 	
-
+	/**
+	* En el caso de que no se importe la agenda se indicará con un mensaje
+	* En cambio si la agenda ha sido exportada correctamente se mostrará la fecha actual y la 
+	* relación de contactos personales a los que hay que felicitar
+	*/
 	private void felicitar() {
 		clear();
 		String felicitacion = " ";
@@ -461,6 +486,12 @@ public class GuiAgenda extends Application {
 
 	}
 
+	/**
+	* Si se pulsa Intro en la caja de se mostrará los contactos de la agenda que coincidan con el 
+	* texto introducido
+	* Si no se ha tecleado nada en la caja de texto se indica con un mensaje. 
+	* Si no hay contactos que incluyan ese texto se indica también con un mensaje.
+	*/
 	private void buscar() {
 		clear();
 		// a completar
@@ -490,7 +521,9 @@ public class GuiAgenda extends Application {
 		areaTexto.requestFocus();
 		areaTexto.selectAll();
 	}
-
+	/**
+	* Se mostrará un cuadro de dialogo “ALERT”  
+	*/
 	private void about() {
 		clear();
 		Alert alert = new Alert(AlertType.INFORMATION);
