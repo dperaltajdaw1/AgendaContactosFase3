@@ -166,11 +166,17 @@ public class GuiAgenda extends Application {
 		VBox.setMargin(btnClear, new Insets(40, 0, 10, 0));
 		btnClear.setPrefWidth(250);
 		btnClear.setText("Clear");
+		btnClear.setOnAction(e -> {
+			clear();
+		});
 		
 		btnSalir = new Button();
 		btnSalir.getStyleClass().add("botones");
 		btnSalir.setPrefWidth(250);
 		btnSalir.setText("Salir");
+		btnSalir.setOnAction(e -> {
+			salir();
+		});
 		
 		panel.getChildren().addAll(
 				txtBuscar, rbtListarTodo, rbtListarSoloNumero,
@@ -377,7 +383,7 @@ public class GuiAgenda extends Application {
 							+ msj);
 				}
 				else {
-					areaTexto.setText("La ", resul.get());
+					areaTexto.setText("La " + resul.get());
 				}
 			} 
 		}
