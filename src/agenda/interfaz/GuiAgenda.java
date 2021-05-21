@@ -376,6 +376,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private void contactosEnLetra(char letra) {
+		clear();
 		if(agenda.totalContactos() != 0) {
 			Set<Contacto> contactos = agenda.contactosEnLetra(letra);
 			String texto = "Contactos con la letra " + letra + "\n";
@@ -396,12 +397,13 @@ public class GuiAgenda extends Application {
 	
 
 	private void felicitar() {
+		clear();
 		String felicitacion = " ";
 		
 		if (agenda.totalContactos() != 0) {
-			felicitacion = "Hoy es " + LocalDate.now();
+			felicitacion = "Hoy es " + LocalDate.now() + "\n";
 				if(agenda.felicitar().isEmpty()) {
-					areaTexto.setText("Hoy no hay nadie a quien felicitar");
+					areaTexto.setText("Hoy no hay nadie a quien felicitar\n");
 				}
 				else {
 					areaTexto.setText("¡Es el cumpleaños de " + agenda.felicitar() + "!\n");
@@ -411,7 +413,7 @@ public class GuiAgenda extends Application {
 		}		
 		
 		else {
-			areaTexto.setText("No has imporatado la agenda");
+			areaTexto.setText("No has imporatado la agenda\n");
 		}
 
 	}
@@ -448,6 +450,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private void about() {
+		clear();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("About Agenda de Contactos");
 		alert.setContentText("Mi agenda de contactos");
