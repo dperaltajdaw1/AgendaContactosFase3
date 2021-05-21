@@ -340,6 +340,7 @@ public class GuiAgenda extends Application {
 			
 		}
 	}
+	
 
 	/**
 	 *  
@@ -358,6 +359,7 @@ public class GuiAgenda extends Application {
 		}
 	}
 
+	
 	/**
 	* Si no se ha llegado a importar la agenda se indicará con un mensaje, en el caso de lo 
 	* contrario se ejecutará un cuadro de dialogo que permitirá mostrar los contactos en la letra 
@@ -392,9 +394,8 @@ public class GuiAgenda extends Application {
 				}
 			} 
 		}
-		
-
 	}
+	
 
 	/**
 	* Si no se ha importado la agenda se indicará con un mensaje, en el caso de lo contrario se 
@@ -431,9 +432,8 @@ public class GuiAgenda extends Application {
 				}
 			} 
 		}
-
-
 	}
+	
 	/**
 	 * Si no se ha importado la agenda se indicará con un mensaje, en el caso de lo contrario se 
 	 * muestran los contactos existentes con dicha letra
@@ -483,7 +483,6 @@ public class GuiAgenda extends Application {
 		else {
 			areaTexto.setText("No has imporatado la agenda\n");
 		}
-
 	}
 
 	/**
@@ -513,14 +512,13 @@ public class GuiAgenda extends Application {
 					String tri = to.getNombre() + to.getApellidos();
 					areaTexto.setText(tri);
 				}
-				
 			}
-			
 		}
 		// Devuelve focus a AreaTexto
 		areaTexto.requestFocus();
 		areaTexto.selectAll();
 	}
+	
 	/**
 	* Se mostrará un cuadro de dialogo “ALERT”  
 	*/
@@ -534,13 +532,18 @@ public class GuiAgenda extends Application {
 		dialogPane.getStylesheets().add(getClass().
 		getResource("/application.css").toExternalForm());
 		alert.showAndWait();
-
 	}
 
+	/**
+	 * Limpiara en are de Texto
+	 */
 	private void clear() {
 		areaTexto.setText("");
 	}
 
+	/**
+	 * Al usar esta opción saldremos del jar
+	 */
 	private void salir() {
 		Platform.exit();
 	}
