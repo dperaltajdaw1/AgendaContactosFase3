@@ -18,7 +18,6 @@ import java.util.TreeSet;
 public class AgendaContactos {
 	//Atributos
 	private Map<Character, Set<Contacto>> agenda;
-	private int contador;
 	
 	//Constructor
 	public AgendaContactos() {
