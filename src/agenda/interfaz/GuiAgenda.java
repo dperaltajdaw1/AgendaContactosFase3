@@ -373,9 +373,10 @@ public class GuiAgenda extends Application {
 			Optional<Character> resul = dialogo.showAndWait();
 			if (resul.isPresent()) {
 				String msj = "";
-				if( msj != "") {
+				ArrayList<Personal> per = agenda.personalesEnLetra(resul.get());
+				if( per.isEmpty() == false ) {
 					int num = 0;
-					for(Personal c : agenda.personalesEnLetra(resul.get())) {
+					for(Personal c : per) {
 						msj += c.toString() + "\n";
 						num ++;
 					}
@@ -383,7 +384,7 @@ public class GuiAgenda extends Application {
 							+ msj);
 				}
 				else {
-					areaTexto.setText("La " + resul.get());
+					areaTexto.setText("La " + resul.get() + " no esta en la agenda");
 				}
 			} 
 		}
