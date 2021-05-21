@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 
 import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
@@ -40,7 +41,7 @@ public class GuiAgenda extends Application {
 
 	private MenuItem itemAbout;
 
-	private TextArea areaTexto;
+	private java.awt.TextArea areaTexto;
 
 	private RadioButton rbtListarTodo;
 	private RadioButton rbtListarSoloNumero;
@@ -157,7 +158,6 @@ public class GuiAgenda extends Application {
 	}
 
 	private GridPane crearPanelLetras() {
-		// a completar
 		GridPane panel = new GridPane();
 
 		return panel;
@@ -338,8 +338,23 @@ public class GuiAgenda extends Application {
 	}
 
 	private void felicitar() {
-		clear();
-		// a completar
+		String felicitacion = " ";
+		
+		if (agenda.totalContactos() != 0) {
+			felicitacion = "Hoy es " + LocalDate.now();
+				if(agenda.felicitar().isEmpty()) {
+					areaTexto.setText("Hoy no hay nadie a quien felicitar");
+				}
+				else {
+					areaTexto.setText("¡Es el cumpleaños de " + agenda.felicitar() + "!\n");
+					
+				}
+				areaTexto.append(felicitacion);
+		}		
+		
+		else {
+			areaTexto.setText("No has imporatado la agenda");
+		}
 
 	}
 
