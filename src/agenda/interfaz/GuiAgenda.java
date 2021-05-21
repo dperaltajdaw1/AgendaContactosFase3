@@ -161,7 +161,20 @@ public class GuiAgenda extends Application {
 
 	private GridPane crearPanelLetras() {
 		GridPane panel = new GridPane();
+		String[] botones = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		Button btons = new Button[27];
+				
+		
+		panel.setPadding(new Intests(10));
+		panel.setMaxSize(Double.MAX_VALUE, Double.MIN_VALUE);
+		
 
+		for(int i; i < botones.length; i++) {
+			btns = new Button(botones[i]);
+			btns[i].setMaxSize(Double.MAX_VALUE, Double.MIN_VALUE);
+			btns[i].setText(botones[i]);
+		}
+		
 		return panel;
 	}
 
@@ -342,16 +355,17 @@ public class GuiAgenda extends Application {
 				for(Contacto contacto :contactos) {
 					texto += contacto.toString();
 				}
+			}
 				else {
-					texto += "No hay contactos existentes"
+					texto += "No hay contactos existentes";
 				}
 				areaTexto.setText(texto);
 			}
 			else {
 				areaTexto.setText("No has imporatado la agenda");
 			}
-		}
 	}
+	
 
 	private void felicitar() {
 		String felicitacion = " ";
