@@ -1,6 +1,9 @@
 package agenda.interfaz;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
@@ -228,14 +231,14 @@ public class GuiAgenda extends Application {
 	private void importarAgenda() {
 		// a completar
 		// a completar
-				//FileChooser cho = new FileChooser();
-				//File fie = cho.showSaveDialog(null);
+				FileChooser cho = new FileChooser();
+				File fie = cho.showSaveDialog(null);
 				// No se como va el FileChooser
 				
 				//Esto es copia del importar del AgendaIO
-				/*int error = 0;
+				int error = 0;
 				BufferedReader entrada = null;
-				try
+				/*try
 				{
 					InputStream input = AgendaIO.class.getClassLoader().getResourceAsStream(texto);
 					entrada = new BufferedReader(new InputStreamReader(input));
@@ -274,12 +277,12 @@ public class GuiAgenda extends Application {
 							error++;
 						}
 					}
-				}
-				Fin de copia
+				}*/
+				//Fin de copia
 				
-				Esto deberia ponerlo en el textarea
-				String ing = "N� de errores: " + error;
-				areaTexto.insert(ing,0);*/
+				//Esto deberia ponerlo en el textarea
+				String ing = "Numero de errores: " + error;
+				areaTexto.insertText(0,ing);
 	}
 
 	private void exportarPersonales() {
@@ -346,12 +349,19 @@ public class GuiAgenda extends Application {
 
 		
 		cogerFoco();
-		//Para cogerlo (No puedo comprobar error)
-		//String ing = txtBuscar.getText();
-
+		//Para cogerlo
+		String ing = txtBuscar.getText();
+		if (ing==null) { //Si no hay nada en el txtBuscar, no buscará y dejará un aviso
+			areaTexto.setText("Para buscar, se debe introducir antes lo que se busca");
+		}
+		else {
 		//Para mostrarlo
-		//areaTexto.setText();
-
+			
+			areaTexto.setText("");
+		}
+		// Devuelve focus a AreaTexto
+		areaTexto.requestFocus();
+		areaTexto.selectAll();
 	}
 
 	private void about() {
