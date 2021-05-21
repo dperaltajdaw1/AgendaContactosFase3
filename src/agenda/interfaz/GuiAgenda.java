@@ -1,12 +1,8 @@
 package agenda.interfaz;
 
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,11 +13,8 @@ import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
 import agenda.modelo.Contacto;
 import agenda.modelo.Personal;
-import agenda.modelo.Profesional;
-import agenda.modelo.Relacion;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -47,7 +40,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 public class GuiAgenda extends Application {
