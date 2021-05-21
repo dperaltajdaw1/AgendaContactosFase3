@@ -166,11 +166,17 @@ public class GuiAgenda extends Application {
 		VBox.setMargin(btnClear, new Insets(40, 0, 10, 0));
 		btnClear.setPrefWidth(250);
 		btnClear.setText("Clear");
+		btnClear.setOnAction(e -> {
+			clear();
+		});
 		
 		btnSalir = new Button();
 		btnSalir.getStyleClass().add("botones");
 		btnSalir.setPrefWidth(250);
 		btnSalir.setText("Salir");
+		btnSalir.setOnAction(e -> {
+			salir();
+		});
 		
 		panel.getChildren().addAll(
 				txtBuscar, rbtListarTodo, rbtListarSoloNumero,
@@ -367,8 +373,19 @@ public class GuiAgenda extends Application {
 			dialogo.setContentText("Elija una letra");
 			Optional<Character> resul = dialogo.showAndWait();
 			if (resul.isPresent()) {
-				for(Contacto c : agenda.personalesEnLetra(resul.get())) {
-					areaTexto.setText(c.toString());
+				String msj = "";
+				ArrayList<Personal> per = agenda.personalesEnLetra(resul.get());
+				if( per.isEmpty() == false ) {
+					int num = 0;
+					for(Personal c : per) {
+						msj += c.toString() + "\n";
+						num ++;
+					}
+					areaTexto.setText("Contactos personales en la letra " + resul.get() + " (" + num + " contacto/s)\n\n"
+							+ msj);
+				}
+				else {
+					areaTexto.setText("La " + resul.get() + " no esta en la agenda");
 				}
 			} 
 		}
