@@ -236,7 +236,7 @@ public class GuiAgenda extends Application {
 		itemImportar.setOnAction(e -> {
 		    importarAgenda();
 		    itemImportar.setDisable(true);// Cuando importar se realiza, se desactiva
-		    itemExportarPersonales.setDisable(false);// y se reactiva exportar
+		    itemExportarPersonales.setDisable(false);// y se activa exportar
 		});
 		itemExportarPersonales = new MenuItem("_Exportar Personales");
 		itemExportarPersonales.setOnAction(e -> {
