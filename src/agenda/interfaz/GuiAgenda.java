@@ -347,16 +347,32 @@ public class GuiAgenda extends Application {
 
 	private void personalesOrdenadosPorFecha() {
 		clear();
-		ChoiceDialog<Character> dia = new ChoiceDialog<Character>();
-		ObservableList<Character> list = dia.getItems();
-		Character[] letras = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-		for (Character ter : letras) {
-			list.add(ter);
-		}
-		Optional<Character> har = dia.showAndWait();
-		List<Personal> nal = agenda.personalesOrdenadosPorFechaNacimiento(har.get());
-		for (Personal per : nal) {
-			areaTexto.appendText(per.getNombre() + per.getApellidos() + "\n");
+		if (agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		} 
+		else {
+			List<Character> opciones = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R',
+					'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+			ChoiceDialog<Character> dialogo = new ChoiceDialog<>('A', opciones);
+			dialogo.setTitle("Selector de letra");
+			dialogo.setContentText("Elija una letra");
+			Optional<Character> resul = dialogo.showAndWait();
+			if (resul.isPresent()) {
+				String msj = "";
+				try {
+					List<Personal> per = agenda.personalesOrdenadosPorFechaNacimiento(resul.get());
+					int num = 0;
+					for(Personal c : per) {
+						msj += c.toString() + "\n";
+						num ++;
+					}
+					areaTexto.setText("Contactos personales en la letra " + resul.get() + " (" + num + " contacto/s)\n\n"
+							+ msj);
+				}
+				catch(NullPointerException e) {
+					areaTexto.setText("La " + resul.get() + " no esta en la agenda");
+				}
+			} 
 		}
 		
 
