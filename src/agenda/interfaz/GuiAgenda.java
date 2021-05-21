@@ -366,8 +366,18 @@ public class GuiAgenda extends Application {
 			dialogo.setContentText("Elija una letra");
 			Optional<Character> resul = dialogo.showAndWait();
 			if (resul.isPresent()) {
-				for(Contacto c : agenda.personalesEnLetra(resul.get())) {
-					areaTexto.setText(c.toString());
+				String msj = "";
+				if( msj != "") {
+					int num = 0;
+					for(Personal c : agenda.personalesEnLetra(resul.get())) {
+						msj += c.toString() + "\n";
+						num ++;
+					}
+					areaTexto.setText("Contactos personales en la letra " + resul.get() + " (" + num + " contacto/s)\n\n"
+							+ msj);
+				}
+				else {
+					areaTexto.setText("La ", resul.get());
 				}
 			} 
 		}
