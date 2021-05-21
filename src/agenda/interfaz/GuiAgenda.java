@@ -105,10 +105,10 @@ public class GuiAgenda extends Application {
 
 	private VBox crearPanelBotones() {
 		// a completar
-		VBox panel = new VBox();
-		panel.setPadding(new Insets(10));
+		VBox panel = new VBox();// Nuevo panel
+		panel.setPadding(new Insets(10));// Padding
 		
-		txtBuscar = new TextField();
+		txtBuscar = new TextField();// Zona de buscar
 		txtBuscar.getStyleClass().add("text-field");
 		VBox.setMargin(txtBuscar, new Insets(0, 0, 40, 0));
 		txtBuscar.minHeight(40);
@@ -118,7 +118,7 @@ public class GuiAgenda extends Application {
 				 buscar();
 		}}); 
 		
-		ToggleGroup group = new ToggleGroup();
+		ToggleGroup group = new ToggleGroup();// Para seleccionar si quieres listar la agenda o el nº de contactos
 		
 		rbtListarTodo = new RadioButton();
 		rbtListarTodo.getStyleClass().add("radio-button");
@@ -133,7 +133,7 @@ public class GuiAgenda extends Application {
 		rbtListarSoloNumero.setToggleGroup(group);
 		
 		
-		btnListar = new Button();
+		btnListar = new Button();// Boton listar
 		btnListar.getStyleClass().add("botones");
 		VBox.setMargin(btnListar, new Insets(10, 0, 40, 0));
 		btnListar.setPrefWidth(250);
@@ -142,7 +142,7 @@ public class GuiAgenda extends Application {
 			listar();
 		});
 		
-		btnPersonalesEnLetra = new Button();
+		btnPersonalesEnLetra = new Button();// Boton para los contactos personales en letra
 		btnPersonalesEnLetra.getStyleClass().add("botones");
 		VBox.setMargin(btnPersonalesEnLetra, new Insets(0, 0, 10, 0));
 		btnPersonalesEnLetra.setPrefWidth(250);
@@ -151,7 +151,7 @@ public class GuiAgenda extends Application {
 			contactosPersonalesEnLetra();
 		});
 		
-		btnPersonalesOrdenadosPorFecha = new Button();
+		btnPersonalesOrdenadosPorFecha = new Button();// Boton para los contactos personales en letra ordenados por fecha
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
 		btnPersonalesOrdenadosPorFecha.setPrefWidth(250);
 		btnPersonalesOrdenadosPorFecha.setText("Contactos Personales\n ordenados por fecha");
@@ -159,7 +159,7 @@ public class GuiAgenda extends Application {
 			personalesOrdenadosPorFecha();
 		});
 		
-		btnClear = new Button();
+		btnClear = new Button();// Para limpiar el texto
 		btnClear.getStyleClass().add("botones");
 		VBox.setMargin(btnClear, new Insets(40, 0, 10, 0));
 		btnClear.setPrefWidth(250);
@@ -168,7 +168,7 @@ public class GuiAgenda extends Application {
 			clear();
 		});
 		
-		btnSalir = new Button();
+		btnSalir = new Button();// Para salir
 		btnSalir.getStyleClass().add("botones");
 		btnSalir.setPrefWidth(250);
 		btnSalir.setText("Salir");
@@ -186,13 +186,13 @@ public class GuiAgenda extends Application {
 	private GridPane crearPanelLetras() {
 
 
-		GridPane panel = new GridPane();
-		panel.setPadding(new Insets(10));
-		
+		GridPane panel = new GridPane();// Nuevo panel
+		panel.setPadding(new Insets(10));// Padding
+		// Las letras
 		char[] letras = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 		int c = 0;
 		int f = 0;
-		for(int i = 0; i < letras.length; i++) {
+		for(int i = 0; i < letras.length; i++) {// Se van poniendo los botones por letra. Cuando llega al 14, pasa de fila
 			if(f < 14) {
 			Button botones = new Button();
 			GridPane.setMargin(botones, new Insets(2));
@@ -228,15 +228,15 @@ public class GuiAgenda extends Application {
 		// a completar
 		MenuBar barra = new MenuBar();
 
-		Menu me1 = new Menu("Archivo");
-		Menu me2 = new Menu("Operaciones");
-		Menu me3 = new Menu("Help");
+		Menu me1 = new Menu("Archivo");// Menu 1
+		Menu me2 = new Menu("Operaciones");// Menu 2
+		Menu me3 = new Menu("Help");// Menu 3
 		
 		itemImportar = new MenuItem("Importar agenda");
 		itemImportar.setOnAction(e -> {
 		    importarAgenda();
-		    itemImportar.setDisable(true);
-		    itemExportarPersonales.setDisable(false);
+		    itemImportar.setDisable(true);// Cuando importar se realiza, se desactiva
+		    itemExportarPersonales.setDisable(false);// y se activa exportar
 		});
 		itemExportarPersonales = new MenuItem("_Exportar Personales");
 		itemExportarPersonales.setOnAction(e -> {
@@ -252,7 +252,7 @@ public class GuiAgenda extends Application {
 		
 		me1.getItems().add(itemImportar);
 		me1.getItems().add(itemExportarPersonales);
-		me1.getItems().add(separator);
+		me1.getItems().add(separator);// Para separar
 		me1.getItems().add(itemSalir);
 		
 		itemBuscar = new MenuItem("Buscar");
@@ -274,10 +274,10 @@ public class GuiAgenda extends Application {
 		
 		me3.getItems().add(itemAbout);
 		
-		barra.getMenus().add(me1);
+		barra.getMenus().add(me1);// Se ponen en la barra
 		barra.getMenus().add(me2);
 		barra.getMenus().add(me3);
-		
+		// Se les asignan combinaciones
 		itemExportarPersonales.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
 		itemImportar.setAccelerator(new KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_DOWN));
 		itemSalir.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
