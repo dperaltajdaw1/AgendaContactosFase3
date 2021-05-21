@@ -377,8 +377,8 @@ public class GuiAgenda extends Application {
 			Optional<Character> resul = dialogo.showAndWait();
 			if (resul.isPresent()) {
 				String msj = "";
-				ArrayList<Personal> per = agenda.personalesEnLetra(resul.get());
-				if( per.isEmpty() == false ) {
+				try {
+					ArrayList<Personal> per = agenda.personalesEnLetra(resul.get());
 					int num = 0;
 					for(Personal c : per) {
 						msj += c.toString() + "\n";
@@ -387,7 +387,7 @@ public class GuiAgenda extends Application {
 					areaTexto.setText("Contactos personales en la letra " + resul.get() + " (" + num + " contacto/s)\n\n"
 							+ msj);
 				}
-				else {
+				catch(NullPointerException e) {
 					areaTexto.setText("La " + resul.get() + " no esta en la agenda");
 				}
 			} 
@@ -401,7 +401,7 @@ public class GuiAgenda extends Application {
 		String texto = "No hay contactos existentes";
 		if(agenda.totalContactos() != 0) {
 			Set<Contacto> contactos = agenda.contactosEnLetra(letra);
-			String texto = "Contactos con la letra " + letra + "\n";
+			String text = "Contactos con la letra " + letra + "\n";
 			if(contactos.size() != 0) {
 				for(Contacto contacto :contactos) {
 					texto += contacto.toString();
