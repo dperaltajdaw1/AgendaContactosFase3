@@ -187,6 +187,7 @@ public class GuiAgenda extends Application {
 
 	private GridPane crearPanelLetras() {
 
+
 		GridPane panel = new GridPane();
 		panel.setPadding(new Insets(10));
 		
@@ -207,6 +208,7 @@ public class GuiAgenda extends Application {
 				}
 			);
 			
+			
 			panel.setHgrow(botones, Priority.ALWAYS);
 			panel.setVgrow(botones, Priority.ALWAYS);
 			
@@ -219,6 +221,7 @@ public class GuiAgenda extends Application {
 				i --;
 			}
 		}
+		
 		return panel;
 	}
 
