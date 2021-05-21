@@ -398,23 +398,22 @@ public class GuiAgenda extends Application {
 
 	private void contactosEnLetra(char letra) {
 		clear();
-		String texto = "No hay contactos existentes";
+		String texto = "";
 		if(agenda.totalContactos() != 0) {
-			Set<Contacto> contactos = agenda.contactosEnLetra(letra);
-			String text = "Contactos con la letra " + letra + "\n";
-			if(contactos.size() != 0) {
-				for(Contacto contacto :contactos) {
-					texto += contacto.toString();
+			try {
+				Set<Contacto> contactos = agenda.contactosEnLetra(letra);
+				for(Contacto c : contactos) {
+					texto += c.toString() + "\n";
 				}
+				areaTexto.setText("Contactos con la letra " + letra + "\n\n" + texto);
 			}
-				else {
-					texto += "No hay contactos existentes";
-				}
-				areaTexto.setText(texto);
+			catch(NullPointerException e) {
+				areaTexto.setText("No hay contactos existentes");
 			}
-			else {
-				areaTexto.setText("No has imporatado la agenda");
-			}
+		}
+		else {
+			areaTexto.setText("No has imporatado la agenda");
+		}
 	}
 	
 
