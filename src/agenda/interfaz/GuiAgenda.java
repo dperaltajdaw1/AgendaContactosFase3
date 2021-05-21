@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.util.Set;
 
 import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
+import agenda.modelo.Contacto;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -333,8 +335,22 @@ public class GuiAgenda extends Application {
 	}
 
 	private void contactosEnLetra(char letra) {
-		clear();
-		// a completar
+		if(agenda.totalContactos() != 0) {
+			Set<Contacto> contactos = agenda.contactosEnLetra(letra);
+			String texto = "Contactos con la letra " + letra + "\n";
+			if(contactos.size() != 0) {
+				for(Contacto contacto :contactos) {
+					texto += contacto.toString();
+				}
+				else {
+					texto += "No hay contactos existentes"
+				}
+				areaTexto.setText(texto);
+			}
+			else {
+				areaTexto.setText("No has imporatado la agenda");
+			}
+		}
 	}
 
 	private void felicitar() {
