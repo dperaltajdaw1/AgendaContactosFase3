@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Set;
 
 import agenda.io.AgendaIO;
@@ -28,6 +29,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -43,7 +45,7 @@ public class GuiAgenda extends Application {
 
 	private MenuItem itemAbout;
 
-	private java.awt.TextArea areaTexto;
+	private TextArea areaTexto;
 
 	private RadioButton rbtListarTodo;
 	private RadioButton rbtListarSoloNumero;
@@ -89,6 +91,7 @@ public class GuiAgenda extends Application {
 		
 		panel.setCenter(areaTexto);
 		panel.setLeft(crearPanelBotones());
+		panel.setTop(crearPanelLetras());
 		return panel;
 	}
 
@@ -161,18 +164,36 @@ public class GuiAgenda extends Application {
 
 	private GridPane crearPanelLetras() {
 		GridPane panel = new GridPane();
-		String[] botones = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-		Button btons = new Button[27];
-				
+		panel.setPadding(new Insets(10));
 		
-		panel.setPadding(new Intests(10));
-		panel.setMaxSize(Double.MAX_VALUE, Double.MIN_VALUE);
-		
-
-		for(int i; i < botones.length; i++) {
-			btns = new Button(botones[i]);
-			btns[i].setMaxSize(Double.MAX_VALUE, Double.MIN_VALUE);
-			btns[i].setText(botones[i]);
+		char[] letras = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+		int c = 0;
+		int f = 0;
+		for(int i = 0; i < letras.length; i++) {
+			if(f < 14) {
+			Button botones = new Button();
+			GridPane.setMargin(botones, new Insets(2));
+			
+			botones.getStyleClass().add("botonletra");
+			botones.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+			botones.setText(String.valueOf(letras[i]));
+			botones.setOnAction(e -> {
+				for(int j = 0; j < letras.length; j ++) {
+				contactosEnLetra(letras[j]);
+				}
+			});
+			
+			panel.setHgrow(botones, Priority.ALWAYS);
+			panel.setVgrow(botones, Priority.ALWAYS);
+			
+				panel.add(botones, f, c);
+				f ++;
+			}
+			else {
+				f = 0;
+				c = 1;
+				i --;
+			}
 		}
 		
 		return panel;
@@ -246,13 +267,13 @@ public class GuiAgenda extends Application {
 	private void importarAgenda() {
 		// a completar
 		// a completar
-				FileChooser cho = new FileChooser();
-				File fie = cho.showSaveDialog(null);
+				//FileChooser cho = new FileChooser();
+				//File fie = cho.showSaveDialog(null);
 				// No se como va el FileChooser
 				
 				//Esto es copia del importar del AgendaIO
-				int error = 0;
-				BufferedReader entrada = null;
+				//int error = 0;
+				//BufferedReader entrada = null;
 				/*try
 				{
 					InputStream input = AgendaIO.class.getClassLoader().getResourceAsStream(texto);
@@ -296,8 +317,8 @@ public class GuiAgenda extends Application {
 				//Fin de copia
 				
 				//Esto deberia ponerlo en el textarea
-				String ing = "Numero de errores: " + error;
-				areaTexto.insertText(0,ing);
+				//String ing = "Numero de errores: " + error;
+				//areaTexto.insert(ing, 0);
 	}
 
 	private void exportarPersonales() {
@@ -379,7 +400,7 @@ public class GuiAgenda extends Application {
 					areaTexto.setText("¡Es el cumpleaños de " + agenda.felicitar() + "!\n");
 					
 				}
-				areaTexto.append(felicitacion);
+				areaTexto.appendText(felicitacion);
 		}		
 		
 		else {
