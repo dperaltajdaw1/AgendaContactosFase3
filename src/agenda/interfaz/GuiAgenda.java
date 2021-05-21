@@ -22,6 +22,7 @@ import agenda.modelo.Relacion;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -40,6 +41,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -119,6 +121,10 @@ public class GuiAgenda extends Application {
 		VBox.setMargin(txtBuscar, new Insets(0, 0, 40, 0));
 		txtBuscar.minHeight(40);
 		txtBuscar.setPromptText("Buscar");
+		btnListar.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			 public void handle(KeyEvent keyEvent) {
+				 buscar();
+		}}); 
 		
 		ToggleGroup group = new ToggleGroup();
 		
@@ -459,11 +465,10 @@ public class GuiAgenda extends Application {
 		clear();
 		// a completar
 
-		
 		cogerFoco();
 		//Para cogerlo
 		String ing = txtBuscar.getText();
-		if (ing=="Buscar") { //Si no hay nada en el txtBuscar, no buscará y dejará un aviso
+		if (ing == "Buscar") { //Si no hay nada en el txtBuscar, no buscará y dejará un aviso
 			areaTexto.setText("Para buscar, se debe introducir antes lo que se busca");
 		}
 		else {
