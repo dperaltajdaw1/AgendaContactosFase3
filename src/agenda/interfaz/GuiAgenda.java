@@ -180,6 +180,7 @@ public class GuiAgenda extends Application {
 	}
 
 	private GridPane crearPanelLetras() {
+
 		GridPane panel = new GridPane();
 		panel.setPadding(new Insets(10));
 		
@@ -194,11 +195,11 @@ public class GuiAgenda extends Application {
 			botones.getStyleClass().add("botonletra");
 			botones.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
 			botones.setText(String.valueOf(letras[i]));
+			char letra = letras[i];
 			botones.setOnAction(e -> {
-				for(int j = 0; j < letras.length; j ++) {
-				contactosEnLetra(letras[j]);
+				contactosEnLetra(letra);
 				}
-			});
+			);
 			
 			panel.setHgrow(botones, Priority.ALWAYS);
 			panel.setVgrow(botones, Priority.ALWAYS);
@@ -212,9 +213,9 @@ public class GuiAgenda extends Application {
 				i --;
 			}
 		}
-		
 		return panel;
 	}
+
 
 	private MenuBar crearBarraMenu() {
 		// a completar
@@ -377,6 +378,7 @@ public class GuiAgenda extends Application {
 
 	private void contactosEnLetra(char letra) {
 		clear();
+		String texto = "No hay contactos existentes";
 		if(agenda.totalContactos() != 0) {
 			Set<Contacto> contactos = agenda.contactosEnLetra(letra);
 			String texto = "Contactos con la letra " + letra + "\n";
