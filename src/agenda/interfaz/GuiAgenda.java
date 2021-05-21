@@ -2,15 +2,21 @@ package agenda.interfaz;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
 import agenda.modelo.Contacto;
+import agenda.modelo.Personal;
+import agenda.modelo.Profesional;
+import agenda.modelo.Relacion;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -217,6 +223,7 @@ public class GuiAgenda extends Application {
 		itemExportarPersonales.setOnAction(e -> {
 			exportarPersonales();
 		});
+		itemExportarPersonales.setDisable(true);
 		itemSalir = new MenuItem("Salir");
 		itemSalir.setOnAction(e -> {
 			salir();
@@ -267,58 +274,19 @@ public class GuiAgenda extends Application {
 	private void importarAgenda() {
 		// a completar
 		// a completar
-				//FileChooser cho = new FileChooser();
-				//File fie = cho.showSaveDialog(null);
+				Stage st = new Stage();
+				FileChooser cho = new FileChooser();
+				File fie = cho.showOpenDialog(st);
 				// No se como va el FileChooser
 				
-				//Esto es copia del importar del AgendaIO
-				//int error = 0;
-				//BufferedReader entrada = null;
-				/*try
-				{
-					InputStream input = AgendaIO.class.getClassLoader().getResourceAsStream(texto);
-					entrada = new BufferedReader(new InputStreamReader(input));
-					String linea = entrada.readLine();
-					while (linea != null){
-						try {
-							agenda.añadirContacto(parsearLinea(linea));
-						}
-						catch (NullPointerException io) {
-							error ++;
-						}
-						linea = entrada.readLine();
-					}
-				}
-				catch (IOException e){
-					System.out.println("Error al leer " + texto);
-					error++;
-				}
-				finally
-				{
-					if (entrada != null)
-					{
-						try
-						{
-							entrada.close();
-						}
-						catch (NullPointerException e)
-						{
-							System.out.println(e.getMessage());
-							error++;
-						}
-						
-						catch (IOException e)
-						{
-							System.out.println(e.getMessage());
-							error++;
-						}
-					}
-				}*/
+				
+				int error = AgendaIO.importar(agenda,String.valueOf(fie));
+				
 				//Fin de copia
 				
 				//Esto deberia ponerlo en el textarea
-				//String ing = "Numero de errores: " + error;
-				//areaTexto.insert(ing, 0);
+				String ing = "Numero de errores: " + error;
+				areaTexto.insertText(0, ing);
 	}
 
 	private void exportarPersonales() {
@@ -417,13 +385,23 @@ public class GuiAgenda extends Application {
 		cogerFoco();
 		//Para cogerlo
 		String ing = txtBuscar.getText();
-		if (ing==null) { //Si no hay nada en el txtBuscar, no buscará y dejará un aviso
+		if (ing=="Buscar") { //Si no hay nada en el txtBuscar, no buscará y dejará un aviso
 			areaTexto.setText("Para buscar, se debe introducir antes lo que se busca");
 		}
 		else {
 		//Para mostrarlo
+			List <Contacto> tac = agenda.buscarContactos(ing);
+			if (tac.size()<1) {
+				areaTexto.setText("No hay contactos asi");
+			}
+			else {
+				for (Contacto to : tac) {
+					String tri = to.getNombre() + to.getApellidos();
+					areaTexto.setText(tri);
+				}
+				
+			}
 			
-			areaTexto.setText("");
 		}
 		// Devuelve focus a AreaTexto
 		areaTexto.requestFocus();
@@ -451,5 +429,36 @@ public class GuiAgenda extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	private static Contacto parsearLinea(String linea){
+		String[] datosLinea = linea.split(",");
+
+		String nombre = datosLinea[1].trim();
+		String apellidos = datosLinea[2].trim();
+		String telefono = datosLinea[3].trim();
+		String email = datosLinea[4].trim();
+		String nombreEmpresa = "";
+		Relacion relacion = null;
+		String fechaNac = "";
+		if (Integer.valueOf(datosLinea[0].trim()) == 2) {
+			try {
+				fechaNac = datosLinea[5].trim();
+				relacion = Relacion.valueOf(datosLinea[6].trim().toUpperCase());
+				 return new Personal(nombre, apellidos, telefono, email, fechaNac, relacion);
+			}
+			catch(DateTimeParseException e){
+				e.getMessage();
+			}
+			catch(IllegalArgumentException e){
+				e.getMessage();
+			}
+			return null;
+		} 
+		else {
+			nombreEmpresa = datosLinea[5].trim();
+			return new Profesional(nombre, apellidos, telefono, email, nombreEmpresa);
+		}
+		
 	}
 }
