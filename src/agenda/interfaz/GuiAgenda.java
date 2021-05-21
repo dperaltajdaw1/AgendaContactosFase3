@@ -8,7 +8,9 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import agenda.io.AgendaIO;
@@ -19,11 +21,13 @@ import agenda.modelo.Profesional;
 import agenda.modelo.Relacion;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -43,6 +47,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 public class GuiAgenda extends Application {
 	private AgendaContactos agenda;
 	private MenuItem itemImportar;
@@ -276,21 +281,21 @@ public class GuiAgenda extends Application {
 
 	private void importarAgenda() {
 		// a completar
-		// a completar
-				Stage st = new Stage();
-				FileChooser cho = new FileChooser();
-				File fie = cho.showOpenDialog(st);
-				// No se como va el FileChooser
-				
-				
-				int error = AgendaIO.importar(agenda,String.valueOf(fie));
-				
-				//Fin de copia
-				
-				//Esto deberia ponerlo en el textarea
-				String ing = "Numero de errores: " + error;
-				areaTexto.insertText(0, ing);
+		Stage st = new Stage();
+		FileChooser selector = new FileChooser();
+		selector.setTitle("Inportar agenda");
+		selector.setInitialDirectory(new File("."));
+		selector.getExtensionFilters()
+		.addAll(new ExtensionFilter("csv",
+		"*.csv"));
+		File f = selector.showOpenDialog(st);
+		if (f != null) {
+            AgendaIO.importar(agenda, f.getName());
+            areaTexto.setText("Agenda importada");
+        }
+	
 	}
+
 
 	private void exportarPersonales() {
 		// a completar
@@ -329,13 +334,39 @@ public class GuiAgenda extends Application {
 
 	private void personalesOrdenadosPorFecha() {
 		clear();
-		// a completar
+		ChoiceDialog<Character> dia = new ChoiceDialog<Character>();
+		ObservableList<Character> list = dia.getItems();
+		Character[] letras = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+		for (Character ter : letras) {
+			list.add(ter);
+		}
+		Optional<Character> har = dia.showAndWait();
+		List<Personal> nal = agenda.personalesOrdenadosPorFechaNacimiento(har.get());
+		for (Personal per : nal) {
+			areaTexto.appendText(per.getNombre() + per.getApellidos() + "\n");
+		}
+		
 
 	}
 
 	private void contactosPersonalesEnLetra() {
 		clear();
 		// a completar
+		if (agenda.totalContactos() == 0) {
+			areaTexto.setText("Importe antes la agenda");
+		} 
+		else {
+			List<Character> opciones = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R',
+					'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+			ChoiceDialog<Character> dialogo = new ChoiceDialog<>('A', opciones);
+			dialogo.setTitle("Selector de letra");
+			dialogo.setContentText("Elija una letra");
+			Optional<Character> resul = dialogo.showAndWait();
+			if (resul.isPresent()) {
+				contactosEnLetra(resul.get());
+			} 
+		}
+
 
 	}
 
@@ -441,34 +472,4 @@ public class GuiAgenda extends Application {
 		launch(args);
 	}
 	
-	private static Contacto parsearLinea(String linea){
-		String[] datosLinea = linea.split(",");
-
-		String nombre = datosLinea[1].trim();
-		String apellidos = datosLinea[2].trim();
-		String telefono = datosLinea[3].trim();
-		String email = datosLinea[4].trim();
-		String nombreEmpresa = "";
-		Relacion relacion = null;
-		String fechaNac = "";
-		if (Integer.valueOf(datosLinea[0].trim()) == 2) {
-			try {
-				fechaNac = datosLinea[5].trim();
-				relacion = Relacion.valueOf(datosLinea[6].trim().toUpperCase());
-				 return new Personal(nombre, apellidos, telefono, email, fechaNac, relacion);
-			}
-			catch(DateTimeParseException e){
-				e.getMessage();
-			}
-			catch(IllegalArgumentException e){
-				e.getMessage();
-			}
-			return null;
-		} 
-		else {
-			nombreEmpresa = datosLinea[5].trim();
-			return new Profesional(nombre, apellidos, telefono, email, nombreEmpresa);
-		}
-		
-	}
 }
