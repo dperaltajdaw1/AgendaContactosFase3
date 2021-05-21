@@ -149,6 +149,9 @@ public class GuiAgenda extends Application {
 		VBox.setMargin(btnPersonalesEnLetra, new Insets(0, 0, 10, 0));
 		btnPersonalesEnLetra.setPrefWidth(250);
 		btnPersonalesEnLetra.setText("Contactos Personales en letra");
+		btnPersonalesEnLetra.setOnAction(e -> {
+			contactosPersonalesEnLetra();
+		});
 		
 		btnPersonalesOrdenadosPorFecha = new Button();
 		btnPersonalesOrdenadosPorFecha.getStyleClass().add("botones");
@@ -363,7 +366,9 @@ public class GuiAgenda extends Application {
 			dialogo.setContentText("Elija una letra");
 			Optional<Character> resul = dialogo.showAndWait();
 			if (resul.isPresent()) {
-				contactosEnLetra(resul.get());
+				for(Contacto c : agenda.personalesEnLetra(resul.get())) {
+					areaTexto.setText(c.toString());
+				}
 			} 
 		}
 
