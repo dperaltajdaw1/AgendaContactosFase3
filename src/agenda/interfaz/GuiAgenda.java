@@ -113,10 +113,10 @@ public class GuiAgenda extends Application {
 		VBox.setMargin(txtBuscar, new Insets(0, 0, 40, 0));
 		txtBuscar.minHeight(40);
 		txtBuscar.setPromptText("Buscar");
-		btnListar.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		/*btnListar.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			 public void handle(KeyEvent keyEvent) {
 				 buscar();
-		}}); 
+		}}); */
 		
 		ToggleGroup group = new ToggleGroup();// Para seleccionar si quieres listar la agenda o el nº de contactos
 		
@@ -501,8 +501,7 @@ public class GuiAgenda extends Application {
 			}
 			else {
 				for (Contacto to : tac) {
-					String tri = to.getNombre() + to.getApellidos();
-					areaTexto.setText(tri);
+					areaTexto.setText(to.toString() + "\n");
 				}
 			}
 		}
